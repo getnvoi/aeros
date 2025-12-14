@@ -1,0 +1,6 @@
+/* Theme variables */
+@import "./reset.css";
+@import "./theme.css";
+
+/* Component styles */
+@import-glob "../../../components/**/*.css";

@@ -1,1 +1,54 @@
-<%= ui("button", label: "ok") %>
+<div style="padding: 2rem; display: flex; flex-direction: column; gap: 2rem;">
+  <!-- Variants -->
+  <section>
+    <h2 style="margin-bottom: 1rem; font-weight: 600;">Variants</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <%= ui("button", label: "Default", variant: :default) %>
+      <%= ui("button", label: "Secondary", variant: :secondary) %>
+      <%= ui("button", label: "Destructive", variant: :destructive) %>
+      <%= ui("button", label: "Outline", variant: :outline) %>
+      <%= ui("button", label: "Ghost", variant: :ghost) %>
+      <%= ui("button", label: "Link", variant: :link) %>
+    </div>
+  </section>
+
+  <!-- Sizes -->
+  <section>
+    <h2 style="margin-bottom: 1rem; font-weight: 600;">Sizes</h2>
+    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+      <%= ui("button", label: "XSmall", size: :xsmall) %>
+      <%= ui("button", label: "Small", size: :small) %>
+      <%= ui("button", label: "Default") %>
+      <%= ui("button", label: "Large", size: :large) %>
+    </div>
+  </section>
+
+  <!-- With Icons -->
+  <section>
+    <h2 style="margin-bottom: 1rem; font-weight: 600;">With Icons</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <%= ui("button", label: "Settings", icon: "settings") %>
+      <%= ui("button", label: "Download", icon: "download", variant: :secondary) %>
+      <%= ui("button", label: "Delete", icon: "trash-2", variant: :destructive) %>
+      <%= ui("button", label: "Edit", icon: "pencil", variant: :outline) %>
+    </div>
+  </section>
+
+  <!-- States -->
+  <section>
+    <h2 style="margin-bottom: 1rem; font-weight: 600;">States</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <%= ui("button", label: "Disabled", disabled: true) %>
+      <%= ui("button", label: "Full Width", full: true) %>
+    </div>
+  </section>
+
+  <!-- As Link -->
+  <section>
+    <h2 style="margin-bottom: 1rem; font-weight: 600;">As Link</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <%= ui("button", label: "Go to Google", href: "https://google.com", target: "_blank") %>
+      <%= ui("button", label: "Internal Link", href: "/", variant: :outline) %>
+    </div>
+  </section>
+</div>

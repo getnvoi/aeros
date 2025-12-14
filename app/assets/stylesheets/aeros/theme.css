@@ -1,0 +1,66 @@
+/* =============================================================================
+   Aeros - Theme Variables
+   ============================================================================= */
+
+:root {
+  /* CORNERSTONE: BUTTON */
+  --ui-button-bg: #475569;
+  --ui-button-bg-hover: #334155;
+  --ui-button-fg: #ffffff;
+  --ui-button-border: #475569;
+  --ui-button-radius: 0.375rem;
+  --ui-button-secondary-bg: #f5f5f5;
+  --ui-button-secondary-bg-hover: #e5e5e5;
+  --ui-button-secondary-fg: #1a1a1a;
+  --ui-button-destructive-bg: #dc2626;
+  --ui-button-destructive-bg-hover: #b91c1c;
+  --ui-button-destructive-fg: #ffffff;
+  --ui-button-ghost-bg-hover: #f5f5f5;
+  --ui-button-ghost-fg: #1a1a1a;
+  --ui-button-outline-bg-hover: #f5f5f5;
+  --ui-button-outline-fg: #1a1a1a;
+
+  /* CORNERSTONE: INPUT */
+  --ui-input-bg: #ffffff;
+  --ui-input-fg: #1a1a1a;
+  --ui-input-border: #e5e5e5;
+  --ui-input-border-focus: #475569;
+  --ui-input-ring: #475569;
+  --ui-input-placeholder: #737373;
+  --ui-input-radius: 0.375rem;
+
+  /* CORNERSTONE: CARD */
+  --ui-card-bg: #ffffff;
+  --ui-card-fg: #1a1a1a;
+  --ui-card-border: #e5e5e5;
+  --ui-card-radius: 0.5rem;
+  --ui-card-padding: 1.5rem;
+  --ui-card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+  /* CORNERSTONE: AREA */
+  --ui-area-bg: #f5f5f5;
+  --ui-area-fg: #1a1a1a;
+  --ui-area-border: #e5e5e5;
+  --ui-area-radius: 0.75rem;
+
+  /* CORNERSTONE: TYPOGRAPHY */
+  --ui-heading-color: #1a1a1a;
+  --ui-body-color: #1a1a1a;
+  --ui-muted-color: #737373;
+  --ui-link-color: #475569;
+  --ui-link-hover: #334155;
+  --ui-background: #ffffff;
+  --ui-foreground: #1a1a1a;
+  --ui-ring: #3b82f6;
+}
+
+html {
+  color: var(--ui-foreground);
+  background-color: var(--ui-background);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

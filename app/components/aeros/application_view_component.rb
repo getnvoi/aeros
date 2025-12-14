@@ -20,6 +20,22 @@ module Aeros
       def named
         @named ||= self.name.sub(/::Component$/, "").underscore.split("/").join("--").gsub("_", "-")
       end
+
+      # Component identifier for CSS scoping (e.g., "primitives--spinner")
+      # Note: Can't use @identifier - ViewComponent uses it for file paths
+      def css_identifier
+        @css_identifier ||= self.name.to_s
+          .sub(/^Aeros::/, "")
+          .sub(/::Component$/, "")
+          .underscore
+          .gsub("_", "-")
+          .gsub("/", "--")
+      end
+    end
+
+    # Generate scoped CSS class name (e.g., "c--primitives--spinner--container")
+    def class_for(name)
+      "c--#{self.class.css_identifier}--#{name}"
     end
 
     def controller_name

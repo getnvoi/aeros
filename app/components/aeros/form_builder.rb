@@ -5,19 +5,19 @@ class Aeros::FormBuilder < ActionView::Helpers::FormBuilder
     INPUT_BASE_CLASSES = %w[
       block
       w-full
-      rounded-md
-      bg-white
+      rounded-input
+      bg-input-bg
       px-3
       py-2
       text-sm
-      text-gray-900
-      placeholder:text-gray-400
+      text-input-text
+      placeholder:text-input-placeholder
       outline-none
       border
-      border-gray-300
-      focus:border-indigo-500
+      border-input-border
+      focus:border-input-border-focus
       focus:ring-1
-      focus:ring-indigo-500
+      focus:ring-input-ring
       shadow-sm
     ].freeze
 
@@ -35,7 +35,7 @@ class Aeros::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def field(field_type, name, options = {}, &block)
-    klass = "::Aeros::Input#{field_type.to_s.camelize}::Component".constantize
+    klass = "::Aeros::Primitives::Input#{field_type.to_s.camelize}::Component".constantize
     resolved_name = resolve_name(name)
     error_text = @object&.errors&.[](name)&.first
 
