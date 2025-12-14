@@ -1,6 +1,6 @@
 module Aeros::Primitives::Layouts::Agentic
   class Component < Aeros::ApplicationViewComponent
-    renders_one(:sidebar, Aeros::Primitives::Sidebar::Component.name)
+    renders_one :sidebar, Aeros::Primitives::Sidebar::Component
 
     style do
       base do

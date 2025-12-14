@@ -6,7 +6,7 @@ module Aeros::Primitives::Sidebar
     option :active, default: proc { false }
 
     def item_classes
-      ["cp-sidebar-item", active ? "cp-sidebar-item--active" : nil, css].compact.join(" ")
+      ["cp-sidebar__item", active ? "cp-sidebar__item--active" : nil, css].compact.join(" ")
     end
 
     erb_template <<~ERB

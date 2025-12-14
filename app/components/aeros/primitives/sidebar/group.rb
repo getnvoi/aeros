@@ -5,9 +5,9 @@ module Aeros::Primitives::Sidebar
     renders_many :items, Item
 
     erb_template <<~ERB
-      <div class="cp-sidebar-group">
-        <div class="cp-sidebar-group__label"><%= label %></div>
-        <ul class="cp-sidebar-group__menu">
+      <div class="cp-sidebar__group">
+        <div class="cp-sidebar__group-label"><%= label %></div>
+        <ul class="cp-sidebar__group-menu">
           <% items.each do |item| %>
             <li><%= item %></li>
           <% end %>
