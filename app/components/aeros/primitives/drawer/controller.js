@@ -21,23 +21,15 @@ export default class extends Controller {
 
   open() {
     requestAnimationFrame(() => {
-      this.backgroundTarget.classList.add("opacity-100", "pointer-events-auto");
-      this.backgroundTarget.classList.remove(
-        "opacity-0",
-        "pointer-events-none",
-      );
-      this.wrapperTarget.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
+      this.backgroundTarget.classList.add("cp-drawer__backdrop--open");
+      this.wrapperTarget.classList.add("cp-drawer__panel--open");
+      document.body.style.overflow = "hidden";
     });
   }
 
   close() {
-    this.backgroundTarget.classList.remove(
-      "opacity-100",
-      "pointer-events-auto",
-    );
-    this.backgroundTarget.classList.add("opacity-0", "pointer-events-none");
-    this.wrapperTarget.classList.add("translate-x-full");
+    this.backgroundTarget.classList.remove("cp-drawer__backdrop--open");
+    this.wrapperTarget.classList.remove("cp-drawer__panel--open");
     this.#restoreBodyScroll();
 
     setTimeout(() => {
@@ -103,10 +95,10 @@ export default class extends Controller {
 
   #restoreBodyScroll() {
     const openDrawers = document.querySelectorAll(
-      `[data-${this.identifier}-target="background"].opacity-100`,
+      ".cp-drawer__backdrop--open",
     );
     if (openDrawers.length <= 1) {
-      document.body.classList.remove("overflow-hidden");
+      document.body.style.overflow = "";
     }
   }
 }
