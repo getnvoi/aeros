@@ -1,4 +1,5 @@
 require "importmap-rails"
+require "tailwindcss-rails"
 require "view_component-contrib"
 require "dry-effects"
 require "tailwind_merge"

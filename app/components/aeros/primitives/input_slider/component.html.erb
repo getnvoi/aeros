@@ -1,0 +1,33 @@
+<div class="<%= 'opacity-50 pointer-events-none' if disabled %>">
+  <% if label || show_value %>
+    <div class="flex items-center justify-between mb-2">
+      <% if label %>
+        <label for="<%= input_id %>" class="block text-sm font-medium text-foreground">
+          <%= label %>
+        </label>
+      <% end %>
+      <% if show_value %>
+        <span class="text-sm text-muted-foreground font-mono" data-slider-value><%= value %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <input
+    type="range"
+    id="<%= input_id %>"
+    name="<%= name %>"
+    value="<%= value %>"
+    min="<%= min %>"
+    max="<%= max %>"
+    step="<%= step %>"
+    class="<%= classes %>"
+    <%= 'disabled' if disabled %>
+    <% data.each do |key, val| %>
+      data-<%= key.to_s.dasherize %>="<%= val %>"
+    <% end %>
+  />
+
+  <% if helper_text %>
+    <p class="mt-1 text-sm text-muted-foreground"><%= helper_text %></p>
+  <% end %>
+</div>

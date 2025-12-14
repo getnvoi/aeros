@@ -1,0 +1,20 @@
+<div class="<%= 'opacity-50 pointer-events-none' if disabled %>" data-<%= data.to_json if data.any? %>>
+  <% if label %>
+    <label for="<%= id || name %>" class="block text-sm font-medium text-foreground mb-1">
+      <%= label %>
+      <% if required %>
+        <span class="text-destructive">*</span>
+      <% end %>
+    </label>
+  <% end %>
+
+  <div class="relative">
+    <%= content %>
+  </div>
+
+  <% if error_text %>
+    <p class="mt-1 text-sm text-input-error"><%= error_text %></p>
+  <% elsif helper_text %>
+    <p class="mt-1 text-sm text-muted-foreground"><%= helper_text %></p>
+  <% end %>
+</div>
