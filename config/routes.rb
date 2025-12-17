@@ -1,3 +1,4 @@
-Aeros::Engine.routes.draw do
-  root(to: "showcase#index")
+Aeno::Engine.routes.draw do
+  root "showcase#index"
+  get "showcase/:id", to: "showcase#show", as: :showcase
 end

@@ -1,0 +1,24 @@
+<div class="border-b border-gray-900/10 pb-12">
+  <h2 class="text-base/7 font-semibold text-gray-900"><%= title %></h2>
+  <% if description %>
+    <p class="mt-1 text-sm/6 text-gray-600"><%= description %></p>
+  <% end %>
+
+  <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+    <% rows.each do |row| %>
+      <%= row %>
+    <% end %>
+
+    <% inputs.each do |input| %>
+      <div class="sm:col-span-full">
+        <%= input %>
+      </div>
+    <% end %>
+
+    <% nesteds.each do |nested| %>
+      <div class="sm:col-span-full">
+        <%= nested %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+web: test/dummy/bin/rails s -p3000
+css: test/dummy/bin/rake app:tailwindcss:watch

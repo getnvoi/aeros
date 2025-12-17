@@ -1,0 +1,33 @@
+<div class="h-full min-h-0 flex flex-col <%= css %>" data-controller="<%= controller_name %>">
+  <% if header? %>
+    <div class="flex-shrink-0"><%= header %></div>
+  <% end %>
+
+  <% if items.any? || groups.any? || content? %>
+    <div class="flex flex-col h-full min-h-0 overflow-y-scroll">
+      <% if items.any? || groups.any? %>
+        <nav>
+          <% if items.any? %>
+            <ul class="<%= style(:menu) %>">
+              <% items.each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <% groups.each do |group| %>
+            <%= group %>
+          <% end %>
+        </nav>
+      <% end %>
+
+      <% if content? %>
+        <div><%= content %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if footer? %>
+    <div class="flex-shrink-0"><%= footer %></div>
+  <% end %>
+</div>

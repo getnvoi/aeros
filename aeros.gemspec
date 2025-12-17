@@ -1,8 +1,8 @@
-require_relative "lib/aeros/version"
+require_relative "lib/aeno/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "aeros"
-  spec.version     = Aeros::VERSION
+  spec.name        = "aeno"
+  spec.version     = Aeno::VERSION
   spec.authors     = [ "Ben" ]
   spec.email       = [ "ben@dee.mx" ]
   spec.homepage    = "https://github.com/getnvoi/ui"
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "importmap-rails", "~> 2.2.2"
   spec.add_dependency "turbo-rails", "~> 2.0"
   spec.add_dependency "stimulus-rails", "~> 1.3"
-  spec.add_dependency "tailwindcss-rails", "~> 4.3.0"
+  spec.add_dependency "tailwindcss-rails", "~> 4.4"
   spec.add_dependency "view_component", "~> 4.0"
   spec.add_dependency "view_component-contrib", "~> 0.2.5"
   spec.add_dependency "dry-effects", "~> 0.5.0"

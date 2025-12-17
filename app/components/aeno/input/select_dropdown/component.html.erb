@@ -1,0 +1,33 @@
+<div data-controller="<%= controller_name %>"
+     data-action="aeno--dropdown:select-><%= controller_name %>#select"
+     <%= stimulus_values.map { |k, v| "data-#{k.to_s.dasherize}=\"#{ERB::Util.html_escape(v)}\"" }.join(" ").html_safe %>>
+
+  <%= ui("dropdown",
+         label: button_label,
+         searchable: searchable,
+         button_variant: :white,
+         button_size: :small) do |dropdown| %>
+    <% options.each do |option| %>
+      <% is_selected = multiple ? selected_values.include?(option.value.to_s) : (option.selected || option.value == selected_value) %>
+      <% default_icon = multiple ? (is_selected ? "check-square" : "square") : (is_selected ? "circle-dot" : "circle") %>
+      <%= dropdown.with_option(
+        value: option.value,
+        label: option.label,
+        icon: option.icon || default_icon,
+        selected: is_selected
+      ) %>
+    <% end %>
+  <% end %>
+
+  <%# Hidden inputs for form submission %>
+  <% field_name = name %>
+  <div data-<%= controller_name %>-target="hiddenInputs">
+    <% if multiple %>
+      <% selected_values.each do |val| %>
+        <input type="hidden" name="<%= field_name %>[]" value="<%= val %>" />
+      <% end %>
+    <% elsif selected_value %>
+      <input type="hidden" name="<%= field_name %>" value="<%= selected_value %>" />
+    <% end %>
+  </div>
+</div>

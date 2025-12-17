@@ -1,0 +1,23 @@
+<div class="space-y-3">
+  <% if collection && value_method && label_method %>
+    <% collection.each do |item| %>
+      <%= ui("radio",
+        name: name,
+        value: item.send(value_method),
+        label: item.send(label_method),
+        checked: value == item.send(value_method).to_s,
+        disabled: disabled
+      ) %>
+    <% end %>
+  <% else %>
+    <% options.each do |option| %>
+      <%= ui("radio",
+        name: name,
+        value: option.value,
+        label: option.label,
+        checked: value.to_s == option.value.to_s,
+        disabled: option.disabled || disabled
+      ) %>
+    <% end %>
+  <% end %>
+</div>

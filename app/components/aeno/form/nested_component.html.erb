@@ -1,0 +1,95 @@
+<div data-controller="aeno--form"
+     data-aeno--form-wrapper-selector-value="<%= wrapper_selector %>">
+
+  <% if label %>
+    <h3 class="text-sm font-semibold text-gray-900 mb-4"><%= label %></h3>
+  <% end %>
+
+  <!-- Template for new records -->
+  <div data-aeno--form-target="template" class="hidden">
+    <fieldset disabled>
+      <div class="<%= wrapper_selector.delete('.') %> rounded-lg border border-gray-300 p-4 mb-4" data-new-record="true">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+        <% inputs.each_with_index do |input_config, idx| %>
+          <div class="sm:col-span-full">
+            <%= render input_config.to_input(
+              base_name: base_name_for_index('NEW_RECORD'),
+              index: 'NEW_RECORD'
+            ) %>
+          </div>
+        <% end %>
+
+        <% nesteds.each do |nested_config| %>
+          <div class="sm:col-span-full pl-4 border-l-2 border-gray-200">
+            <%= nested_config %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="mt-4 flex justify-end">
+        <button type="button"
+                data-action="aeno--form#remove"
+                class="text-sm font-semibold text-red-600 hover:text-red-500">
+          <%= remove_button_label %>
+        </button>
+      </div>
+
+      <% if allow_destroy %>
+        <input type="hidden" name="<%= model_name %>[<%= association_name %>][NEW_RECORD][_destroy]" value="0" />
+      <% end %>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Existing records -->
+  <div data-aeno--form-target="target">
+    <% existing_records.each_with_index do |record, index| %>
+      <div class="<%= wrapper_selector.delete('.') %> rounded-lg border border-gray-300 p-4 mb-4" data-new-record="false">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+          <% inputs.each do |input_config| %>
+            <div class="sm:col-span-full">
+              <%= render input_config.to_input(
+                base_name: base_name_for_index(index),
+                index: index,
+                record: record
+              ) %>
+            </div>
+          <% end %>
+
+          <% nesteds.each do |nested_config| %>
+            <div class="sm:col-span-full pl-4 border-l-2 border-gray-200">
+              <%= render nested_config.to_nested(model: record) %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mt-4 flex justify-end">
+          <button type="button"
+                  data-action="aeno--form#remove"
+                  class="text-sm font-semibold text-red-600 hover:text-red-500">
+            <%= remove_button_label %>
+          </button>
+        </div>
+
+        <% if allow_destroy %>
+          <input type="hidden"
+                 name="<%= model_name %>[<%= association_name %>][<%= index %>][_destroy]"
+                 value="0" />
+        <% end %>
+
+        <% if record.persisted? %>
+          <input type="hidden"
+                 name="<%= model_name %>[<%= association_name %>][<%= index %>][id]"
+                 value="<%= record.id %>" />
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Add button -->
+  <button type="button"
+          data-action="aeno--form#add"
+          class="mt-4 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+    + <%= add_label %>
+  </button>
+</div>

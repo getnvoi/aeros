@@ -1,0 +1,9 @@
+<div class="max-w-4xl mx-auto py-8 px-4">
+  <h1 class="text-3xl font-bold mb-8">Component Showcase</h1>
+
+  <div class="space-y-2">
+    <% @components.each do |component| %>
+      <%= link_to component.titleize, showcase_path(component), class: "block p-4 bg-white rounded-lg border hover:border-blue-500" %>
+    <% end %>
+  </div>
+</div>

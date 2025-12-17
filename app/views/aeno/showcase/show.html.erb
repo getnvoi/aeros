@@ -1,0 +1,27 @@
+<div class="max-w-4xl mx-auto py-8 px-4">
+  <h1 class="text-3xl font-bold mb-2"><%= @title %></h1>
+  <% if @description %>
+    <p class="text-muted mb-8"><%= @description %></p>
+  <% end %>
+
+  <% @examples.each do |example| %>
+    <div class="mb-12" data-example-key="<%= example.key %>">
+      <h2 class="text-2xl font-semibold mb-2"><%= example.title %></h2>
+      <% if example.description %>
+        <p class="text-sm text-muted mb-4"><%= example.description %></p>
+      <% end %>
+
+      <div class="space-y-4 p-6 bg-white rounded-lg border">
+        <% example.previews.each do |preview| %>
+          <div class="flex items-center gap-4">
+            <% if preview.block %>
+              <%= render(@component.new(**preview.props), &preview.block) %>
+            <% else %>
+              <%= render(@component.new(**preview.props)) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

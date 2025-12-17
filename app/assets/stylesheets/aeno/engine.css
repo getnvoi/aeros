@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+@source "../../../components/**/*.{rb,erb}";
+@source "../../../views/**/*.{erb,html}";
+@source "../../../../test/dummy/app/views/**/*.{erb,html}";
+
+/* =============================================================================
+   Aeros Theme - Cornerstone-Based Token System
+
+   Each cornerstone (button, input, card, etc.) has its own set of CSS variables.
+   Override any --ui-* variable to customize.
+   ============================================================================= */
+
+@theme {
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CORNERSTONE: BUTTON
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --ui-button-bg: #475569;
+  --ui-button-bg-hover: #334155;
+  --ui-button-fg: #ffffff;
+  --ui-button-border: #475569;
+  --ui-button-radius: 0.375rem;
+  --ui-button-px: 0.75rem;
+  --ui-button-py: 0.5rem;
+  --ui-button-weight: 600;
+
+  /* Button variants */
+  --ui-button-secondary-bg: #f5f5f5;
+  --ui-button-secondary-bg-hover: #e5e5e5;
+  --ui-button-secondary-fg: #1a1a1a;
+  --ui-button-destructive-bg: #dc2626;
+  --ui-button-destructive-bg-hover: #b91c1c;
+  --ui-button-destructive-fg: #ffffff;
+  --ui-button-ghost-bg-hover: #f5f5f5;
+  --ui-button-ghost-fg: #1a1a1a;
+  --ui-button-outline-bg-hover: #f5f5f5;
+  --ui-button-outline-fg: #1a1a1a;
+
+  /* Tailwind mappings */
+  --color-button: var(--ui-button-bg);
+  --color-button-hover: var(--ui-button-bg-hover);
+  --color-button-foreground: var(--ui-button-fg);
+  --color-button-border: var(--ui-button-border);
+  --radius-button: var(--ui-button-radius);
+  --radius-button-sm: calc(var(--ui-button-radius) * 0.85);
+  --radius-button-lg: calc(var(--ui-button-radius) * 1.15);
+  --spacing-button-x: var(--ui-button-px);
+  --spacing-button-y: var(--ui-button-py);
+  --color-button-secondary: var(--ui-button-secondary-bg);
+  --color-button-secondary-hover: var(--ui-button-secondary-bg-hover);
+  --color-button-secondary-foreground: var(--ui-button-secondary-fg);
+  --color-button-destructive: var(--ui-button-destructive-bg);
+  --color-button-destructive-hover: var(--ui-button-destructive-bg-hover);
+  --color-button-destructive-foreground: var(--ui-button-destructive-fg);
+  --color-button-ghost-hover: var(--ui-button-ghost-bg-hover);
+  --color-button-ghost-foreground: var(--ui-button-ghost-fg);
+  --color-button-outline-hover: var(--ui-button-outline-bg-hover);
+  --color-button-outline-foreground: var(--ui-button-outline-fg);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CORNERSTONE: INPUT
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --ui-input-bg: #ffffff;
+  --ui-input-fg: #1a1a1a;
+  --ui-input-border: #e5e5e5;
+  --ui-input-border-focus: #475569;
+  --ui-input-ring: #475569;
+  --ui-input-placeholder: #737373;
+  --ui-input-radius: 0.375rem;
+  --ui-input-px: 0.75rem;
+  --ui-input-py: 0.5rem;
+
+  /* Tailwind mappings */
+  --color-input-bg: var(--ui-input-bg);
+  --color-input-border: var(--ui-input-border);
+  --color-input-border-focus: var(--ui-input-border-focus);
+  --color-input-text: var(--ui-input-fg);
+  --color-input-placeholder: var(--ui-input-placeholder);
+  --color-input-ring: var(--ui-input-ring);
+  --radius-input: var(--ui-input-radius);
+  --spacing-input-x: var(--ui-input-px);
+  --spacing-input-y: var(--ui-input-py);
+  --color-input-error: #dc2626;
+  --color-input-error-border: #dc2626;
+  --color-input-success: #16a34a;
+  --color-input-success-border: #16a34a;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CORNERSTONE: CARD
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --ui-card-bg: #ffffff;
+  --ui-card-fg: #1a1a1a;
+  --ui-card-border: #e5e5e5;
+  --ui-card-radius: 0.5rem;
+  --ui-card-padding: 1.5rem;
+  --ui-card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+  /* Tailwind mappings */
+  --color-card-bg: var(--ui-card-bg);
+  --color-card-border: var(--ui-card-border);
+  --color-card-text: var(--ui-card-fg);
+  --radius-card: var(--ui-card-radius);
+  --spacing-card: var(--ui-card-padding);
+  --shadow-card: var(--ui-card-shadow);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CORNERSTONE: SHEET
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --ui-sheet-bg: #ffffff;
+  --ui-sheet-fg: #1a1a1a;
+  --ui-sheet-border: #e5e5e5;
+  --ui-sheet-overlay: #00000080;
+  --ui-sheet-radius: 0.75rem;
+  --ui-sheet-padding: 1.5rem;
+  --ui-sheet-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+
+  /* Tailwind mappings */
+  --color-sheet-bg: var(--ui-sheet-bg);
+  --color-sheet-border: var(--ui-sheet-border);
+  --color-sheet-overlay: var(--ui-sheet-overlay);
+  --radius-sheet: var(--ui-sheet-radius);
+  --spacing-sheet: var(--ui-sheet-padding);
+  --shadow-sheet: var(--ui-sheet-shadow);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CORNERSTONE: AREA
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --ui-area-bg: #f5f5f5;
+  --ui-area-fg: #1a1a1a;
+  --ui-area-border: #e5e5e5;
+  --ui-area-radius: 0.75rem;
+  --ui-area-padding: 2rem;
+
+  /* Tailwind mappings */
+  --color-area-bg: var(--ui-area-bg);
+  --color-area-border: var(--ui-area-border);
+  --radius-area: var(--ui-area-radius);
+  --spacing-area: var(--ui-area-padding);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CORNERSTONE: TABLE
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --ui-table-bg: #ffffff;
+  --ui-table-fg: #1a1a1a;
+  --ui-table-border: #e5e5e5;
+  --ui-table-header-bg: #f5f5f5;
+  --ui-table-header-fg: #737373;
+  --ui-table-row-hover: #f5f5f5;
+  --ui-table-row-stripe: #f5f5f5;
+  --ui-table-radius: 0.5rem;
+  --ui-table-cell-padding: 0.75rem;
+
+  /* Tailwind mappings */
+  --color-table-bg: var(--ui-table-bg);
+  --color-table-border: var(--ui-table-border);
+  --color-table-header-bg: var(--ui-table-header-bg);
+  --color-table-header-fg: var(--ui-table-header-fg);
+  --color-table-row-hover: var(--ui-table-row-hover);
+  --color-table-row-stripe: var(--ui-table-row-stripe);
+  --radius-table: var(--ui-table-radius);
+  --spacing-table-cell: var(--ui-table-cell-padding);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     CORNERSTONE: TYPOGRAPHY
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --ui-heading-color: #1a1a1a;
+  --ui-body-color: #1a1a1a;
+  --ui-muted-color: #737373;
+  --ui-link-color: #475569;
+  --ui-link-hover: #334155;
+  --ui-code-bg: #f5f5f5;
+  --ui-code-fg: #1a1a1a;
+  --ui-font-sans: ui-sans-serif, system-ui, sans-serif;
+  --ui-font-mono: ui-monospace, monospace;
+  --ui-heading-weight: 600;
+
+  /* Tailwind mappings */
+  --color-heading: var(--ui-heading-color);
+  --color-body: var(--ui-body-color);
+  --color-link: var(--ui-link-color);
+  --color-link-hover: var(--ui-link-hover);
+  --color-code: var(--ui-code-fg);
+  --color-code-bg: var(--ui-code-bg);
+  --font-sans: var(--ui-font-sans);
+  --font-mono: var(--ui-font-mono);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     SEMANTIC TOKENS (derived from cornerstones)
+     ═══════════════════════════════════════════════════════════════════════════ */
+  --color-primary: var(--ui-button-bg);
+  --color-primary-hover: var(--ui-button-bg-hover);
+  --color-primary-foreground: var(--ui-button-fg);
+  --color-secondary: var(--ui-button-secondary-bg);
+  --color-secondary-hover: var(--ui-button-secondary-bg-hover);
+  --color-secondary-foreground: var(--ui-button-secondary-fg);
+  --color-destructive: var(--ui-button-destructive-bg);
+  --color-destructive-hover: var(--ui-button-destructive-bg-hover);
+  --color-destructive-foreground: var(--ui-button-destructive-fg);
+  --color-muted: var(--ui-area-bg);
+  --color-muted-foreground: var(--ui-muted-color);
+  --color-accent: var(--ui-button-ghost-bg-hover);
+  --color-accent-foreground: var(--ui-button-ghost-fg);
+  --color-background: var(--ui-card-bg);
+  --color-foreground: var(--ui-body-color);
+  --color-card: var(--ui-card-bg);
+  --color-card-foreground: var(--ui-card-fg);
+  --color-border: var(--ui-card-border);
+  --color-input: var(--ui-input-border);
+  --color-ring: var(--ui-input-ring);
+
+  /* Radius scale */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Sidebar (derives from card/area) */
+  --color-sidebar: var(--ui-card-bg);
+  --color-sidebar-foreground: var(--ui-card-fg);
+  --color-sidebar-border: var(--ui-card-border);
+  --color-sidebar-accent: var(--ui-button-ghost-bg-hover);
+  --color-sidebar-accent-foreground: var(--ui-button-ghost-fg);
+
+  /* Text sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+}
+
+@layer base {
+  html {
+    @apply text-foreground bg-background font-sans;
+  }
+
+  * {
+    @apply border-border;
+  }
+}
+
+button,
+a,
+input[type="submit"],
+select,
+option,
+[role="menuitem"],
+[data-slot="command-item"] {
+  cursor: pointer !important;
+}
+
+button {
+  text-align: left;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}

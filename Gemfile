@@ -1,11 +1,12 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in aeros.gemspec.
+# Specify your gem's dependencies in aeno.gemspec.
 gemspec
 
 gem "puma"
 
 gem "propshaft"
+gem "tailwindcss-rails", "~> 4.4"
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"

@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  mount Aeros::Engine => "/aeros"
+  get "example", to: "home#index"
+
+  mount Aeno::Engine => "/"
 end

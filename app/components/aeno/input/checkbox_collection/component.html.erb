@@ -1,0 +1,25 @@
+<div class="space-y-3">
+  <% if collection && value_method && label_method %>
+    <% current_values = value.is_a?(Array) ? value.map(&:to_s) : [] %>
+    <% collection.each do |item| %>
+      <%= ui("checkbox",
+        name: "#{name}[]",
+        value: item.send(value_method),
+        label: item.send(label_method),
+        checked: current_values.include?(item.send(value_method).to_s),
+        disabled: disabled
+      ) %>
+    <% end %>
+  <% else %>
+    <% current_values = value.is_a?(Array) ? value.map(&:to_s) : [] %>
+    <% options.each do |option| %>
+      <%= ui("checkbox",
+        name: "#{name}[]",
+        value: option.value,
+        label: option.label,
+        checked: current_values.include?(option.value.to_s),
+        disabled: option.disabled || disabled
+      ) %>
+    <% end %>
+  <% end %>
+</div>
