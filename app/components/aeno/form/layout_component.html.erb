@@ -1,10 +1,10 @@
-<div class="space-y-12">
+<div data-role="layout" class="w-full <%= css %>">
   <% items.each do |item| %>
     <%= item %>
   <% end %>
 
   <% if submit || action %>
-    <div class="mt-6 flex items-center justify-end gap-x-6">
+    <div>
       <%= action %>
       <%= submit %>
     </div>

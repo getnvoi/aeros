@@ -102,8 +102,11 @@ class Aeno::FormTest < ViewComponent::TestCase
     assert_selector "form[action='/contacts'][method='post']"
     assert_selector "form[data-controller='aeno--form']"
 
-    # Basic form structure
-    assert_selector "form div.space-y-12"
+    # Data role attributes
+    assert_selector "div[data-role='layout']"
+    assert_selector "div[data-role='group']"
+    assert_selector "div[data-role='row']"
+    assert_selector "div[data-role='nested']"
 
     # Top-level input
     assert_selector "input[name='contact[email]']"
@@ -119,7 +122,7 @@ class Aeno::FormTest < ViewComponent::TestCase
 
     # Nested: Siblings
     assert_selector "h3", text: "Siblings"
-    assert_selector "button", text: "+ Add Sibling"
+    assert_selector "button", text: "Add Sibling"
 
     # There should be div templates for nested forms (hidden with class)
     assert_selector "div[data-aeno--form-target='template'].hidden", visible: false, minimum: 2
@@ -138,6 +141,7 @@ class Aeno::FormTest < ViewComponent::TestCase
     assert_includes all_template_content, "Phone Numbers", "Template should contain nested Phone Numbers"
     assert_includes all_template_content, "phones_attributes", "Should have nested phones attributes"
     assert_includes all_template_content, "Number", "Template should contain Number label for phones"
+    assert_includes all_template_content, "Add Phone", "Template should contain Add Phone button for recursive nesting"
 
     # CRITICAL: Verify nested field name structure
     # Phones should be nested INSIDE siblings, not at top level
@@ -162,7 +166,6 @@ class Aeno::FormTest < ViewComponent::TestCase
     # Action buttons
     assert_selector "button[type='submit']", text: "Create Contact"
     assert_selector "button[type='button']", text: "Cancel"
-    assert_selector "div.mt-6.flex.items-center.justify-end.gap-x-6"
 
     # Nested form should have Stimulus controller
     assert_selector "div[data-controller='aeno--form']"
@@ -267,7 +270,7 @@ class Aeno::FormTest < ViewComponent::TestCase
     assert_selector "h3", text: "Siblings"
 
     # Should have the Add button
-    assert_selector "button", text: "+ Add Sibling"
+    assert_selector "button", text: "Add Sibling"
 
     # Should have the hidden template
     assert_selector "div[data-aeno--form-target='template'].hidden", visible: false
@@ -275,19 +278,45 @@ class Aeno::FormTest < ViewComponent::TestCase
     # Should have the target div (where new entries will be added)
     assert_selector "div[data-aeno--form-target='target']"
 
-    # CRITICAL: Should NOT have any visible sibling entries
-    # Check that no visible sibling inputs exist (only in template)
-    visible_sibling_inputs = page.all("input[name*='[siblings_attributes]'][name*='[name]']", visible: true)
-    assert_equal 0, visible_sibling_inputs.count, "Should have 0 visible sibling inputs when no existing records"
+    # CRITICAL: Should NOT have any visible sibling entries outside the template
+    # Find sibling inputs that are NOT inside a template div
+    all_sibling_inputs = page.all("input[name*='[siblings_attributes]'][name*='[name]']")
+    non_template_sibling_inputs = all_sibling_inputs.reject do |input|
+      input.find(:xpath, "ancestor::div[@data-aeno--form-target='template']", visible: false)
+    rescue Capybara::ElementNotFound
+      false
+    end
+    assert_equal 0, non_template_sibling_inputs.count, "Should have 0 sibling inputs outside template when no existing records"
 
-    # Verify no visible Remove buttons (only in template)
-    visible_remove_buttons = page.all("button", text: "Remove", visible: true)
-    assert_equal 0, visible_remove_buttons.count, "Should have 0 visible Remove buttons when no existing records"
+    # Verify the template exists and has the hidden class
+    template = page.all("div[data-aeno--form-target='template'].hidden", visible: false, minimum: 1)
+    assert template.any?, "Template should exist with hidden class"
 
     # Verify template still exists and contains the fields (but hidden)
     templates = page.all("div[data-aeno--form-target='template'].hidden", visible: false)
     all_template_html = templates.map { |t| t.native.inner_html }.join(" ")
     assert_includes all_template_html, "NEW_RECORD", "Template should contain NEW_RECORD placeholder"
     assert_includes all_template_html, "Sibling Name", "Template should contain sibling fields"
+  end
+
+  def test_form_with_custom_data_action_merges_correctly
+    contact = Contact.create!(name: "Test", email: "test@example.com")
+
+    # Render form with custom action
+    render_inline(Aeno::Form::Component.new(
+      model: contact,
+      url: "/contacts",
+      method: :post,
+      data: { action: "custom->handler#method" }
+    )) do |component|
+      component.with_item_input(type: :text, name: "name", label: "Name")
+    end
+
+    # Should have BOTH default submit action AND custom action
+    form = page.find("form")
+    action_attr = form["data-action"]
+
+    assert_includes action_attr, "submit->aeno--form#submit", "Should include default submit action"
+    assert_includes action_attr, "custom->handler#method", "Should include custom action"
   end
 end

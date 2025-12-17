@@ -3,6 +3,7 @@ module Aeno::Form
     include Aeno::Form::Concerns::InputSlots
 
     option :form_builder
+    option :css, optional: true
 
     renders_many :items, types: {
       input: ->(**args) { input_slot_lambda.call(**args) },

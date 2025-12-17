@@ -3,6 +3,8 @@ module Aeno::Form
     option :model
     option :url
     option :method, default: proc { :post }
+    option :data, default: proc { {} }
+    option :css, optional: true
 
     def render_in(view_context, &block)
       @content_block = block
@@ -18,20 +20,27 @@ module Aeno::Form
     private
 
     def form_options
-      { data: { controller: "aeno--form" } }
+      {
+        class: "w-full #{css}",
+        data: {
+          role: "form",
+          controller: "aeno--form",
+          action: [data[:action], "submit->aeno--form#submit"].compact.join(" ")
+        }.merge(data.except(:action))
+      }
     end
 
     examples("Form", description: "Form component with integrated form_with") do |b|
       b.example(:basic, title: "Basic Form") do |e|
-        e.preview(model: false, url: "/contacts", method: :post) do |component|
+        e.preview(model: Contact.new, url: "/contacts", method: :post, data: { "aeno--form-debug-value": true }) do |component|
           component.with_item_input(type: :text, name: "email", label: "Email")
           component.with_item_input(type: :text, name: "name", label: "Name")
-          component.with_submit(label: "Submit", variant: :primary, type: "submit")
+          component.with_submit(label: "Submit", variant: :default, type: "submit")
         end
       end
 
       b.example(:with_groups, title: "Form with Groups") do |e|
-        e.preview(model: false, url: "/contacts", method: :post) do |component|
+        e.preview(model: Contact.new, url: "/contacts", method: :post, data: { "aeno--form-debug-value": true }) do |component|
           component.with_item_group(title: "Contact Information") do |g|
             g.with_item_input(type: :text, name: "name", label: "Name")
             g.with_item_input(type: :text, name: "email", label: "Email")
@@ -42,25 +51,43 @@ module Aeno::Form
               r.with_item_input(type: :text, name: "state", label: "State")
             end
           end
-          component.with_submit(label: "Save", variant: :primary, type: "submit")
-          component.with_action(label: "Cancel", variant: :secondary, type: "button")
+          component.with_submit(label: "Save", variant: :default, type: "submit")
+          component.with_action(label: "Cancel", variant: :white, type: "button")
         end
       end
 
       b.example(:with_nested, title: "Form with Nested Attributes") do |e|
-        e.preview(model: false, url: "/contacts", method: :post) do |component|
+        e.preview(model: Contact.new, url: "/contacts", method: :post, data: { "aeno--form-debug-value": true }) do |component|
           component.with_item_input(type: :text, name: "name", label: "Name")
           component.with_item_input(type: :text, name: "email", label: "Email")
 
-          component.with_item_nested(name: :addresses, label: "Addresses") do |n|
-            n.with_item_input(type: :text, name: "street", label: "Street")
-            n.with_item_row(css: "grid-cols-2") do |r|
-              r.with_item_input(type: :text, name: "city", label: "City")
-              r.with_item_input(type: :text, name: "zip", label: "ZIP")
+          component.with_item_nested(name: :siblings, label: "Siblings") do |n|
+            n.with_item_input(type: :text, name: "name", label: "Sibling Name")
+            n.with_item_input(type: :text, name: "age", label: "Age")
+          end
+
+          component.with_submit(label: "Create Contact", variant: :default, type: "submit")
+        end
+      end
+
+      b.example(:with_nested_in_group, title: "Recursive Nested Forms") do |e|
+        e.preview(model: Contact.new, url: "/contacts", method: :post, data: { "aeno--form-debug-value": true }) do |component|
+          component.with_item_input(type: :text, name: "name", label: "Name")
+          component.with_item_input(type: :text, name: "email", label: "Email")
+
+          component.with_item_group(title: "Family") do |g|
+            g.with_item_nested(name: :siblings, label: "Siblings") do |n|
+              n.with_item_input(type: :text, name: "name", label: "Sibling Name")
+              n.with_item_input(type: :text, name: "age", label: "Age")
+
+              n.with_item_nested(name: :phones, label: "Phone Numbers") do |p|
+                p.with_item_input(type: :text, name: "number", label: "Phone Number")
+                p.with_item_input(type: :text, name: "phone_type", label: "Type")
+              end
             end
           end
 
-          component.with_submit(label: "Create Contact", variant: :primary, type: "submit")
+          component.with_submit(label: "Save", variant: :default, type: "submit")
         end
       end
     end

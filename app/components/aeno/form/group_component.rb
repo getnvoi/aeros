@@ -5,6 +5,7 @@ module Aeno::Form
     option :title
     option :description, optional: true
     option :form_builder
+    option :css, optional: true
 
     renders_many :items, types: {
       input: ->(**args) { input_slot_lambda.call(**args) },

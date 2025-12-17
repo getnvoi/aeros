@@ -1,47 +1,59 @@
-<div data-controller="aeno--form" data-aeno--form-wrapper-selector-value="<%= wrapper_selector %>">
+<div data-controller="aeno--form" data-role="nested" class="w-full <%= css %>" data-aeno--form-wrapper-selector-value="<%= wrapper_selector %>">
   <% if label %>
-    <h3 class="text-sm font-semibold text-gray-900 mb-4"><%= label %></h3>
+    <h3><%= label %></h3>
   <% end %>
 
   <%# Template for NEW records %>
-  <div data-aeno--form-target="template" class="hidden" style="display: none;">
-    <%
-      if form_builder.object
+  <div data-aeno--form-target="template" class="hidden">
+    <% if form_builder.object && form_builder.object != false %>
+      <%
         association = form_builder.object.class.reflect_on_association(name)
         template_object = association.klass.new
-      else
-        template_object = nil
-      end
-    %>
-    <%= form_builder.fields_for(name, template_object, child_index: 'NEW_RECORD') do |nested_builder| %>
-      <fieldset disabled>
-        <div class="<%= wrapper_selector.delete('.') %> rounded-lg border border-gray-300 p-4 mb-4" data-new-record="true">
-          <%= render_nested_form(nested_builder) %>
+      %>
+      <%= form_builder.fields_for(name, template_object, child_index: 'NEW_RECORD') do |nested_builder| %>
+        <fieldset disabled>
+          <div data-role="nested-item" data-new-record="true">
+            <%= render_nested_form(nested_builder) %>
 
-          <div class="mt-4 flex justify-end">
-            <button type="button" data-action="aeno--form#remove" class="text-sm font-semibold text-red-600 hover:text-red-500">
-              <%= remove_button_label %>
-            </button>
+            <div>
+              <%= render Aeno::Button::Component.new(
+                type: "button",
+                label: remove_button_label,
+                icon: remove_button_icon,
+                variant: :white,
+                size: :small,
+                data: { action: "aeno--form#remove" }
+              ) %>
+            </div>
+            <% if allow_destroy %>
+              <%= nested_builder.hidden_field :_destroy, value: "0" %>
+            <% end %>
           </div>
-          <% if allow_destroy %>
-            <%= nested_builder.hidden_field :_destroy, value: "0" %>
-          <% end %>
-        </div>
-      </fieldset>
+        </fieldset>
+      <% end %>
     <% end %>
   </div>
 
   <%# Existing records with fields_for %>
   <div data-aeno--form-target="target">
-    <% if form_builder.object&.public_send(name)&.any? %>
-      <%= form_builder.fields_for(name) do |nested_builder| %>
-        <div class="<%= wrapper_selector.delete('.') %> rounded-lg border border-gray-300 p-4 mb-4" data-new-record="false">
+    <%
+      collection = form_builder.object&.public_send(name) || []
+      collection = collection.select(&:persisted?) if collection.respond_to?(:select)
+    %>
+    <% if collection.any? %>
+      <%= form_builder.fields_for(name, collection) do |nested_builder| %>
+        <div data-role="nested-item" data-new-record="false">
           <%= render_nested_form(nested_builder) %>
 
-          <div class="mt-4 flex justify-end">
-            <button type="button" data-action="aeno--form#remove" class="text-sm font-semibold text-red-600 hover:text-red-500">
-              <%= remove_button_label %>
-            </button>
+          <div>
+            <%= render Aeno::Button::Component.new(
+              type: "button",
+              label: remove_button_label,
+              icon: remove_button_icon,
+              variant: :white,
+              size: :small,
+              data: { action: "aeno--form#remove" }
+            ) %>
           </div>
           <% if allow_destroy %>
             <%= nested_builder.hidden_field :_destroy, value: "0" %>
@@ -54,7 +66,12 @@
     <% end %>
   </div>
 
-  <button type="button" data-action="aeno--form#add" class="mt-4 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-    + <%= add_label %>
-  </button>
+  <%= render Aeno::Button::Component.new(
+    type: "button",
+    label: add_label,
+    icon: add_button_icon,
+    variant: :white,
+    size: :small,
+    data: { role: "add-nested", action: "aeno--form#add" }
+  ) %>
 </div>

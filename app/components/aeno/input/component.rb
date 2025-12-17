@@ -32,7 +32,7 @@ module Aeno::Input
 
       nested = input_component.new(name: name, id: id, disabled: disabled, required: required, data: data, **extra_options)
 
-      content_tag(:div, class: disabled ? "opacity-50 pointer-events-none" : nil, data: merged_data) do
+      content_tag(:div, class: ["w-full", (disabled ? "opacity-50 pointer-events-none" : nil)].compact.join(" "), data: merged_data) do
         safe_join([
           (label_html if label),
           content_tag(:div, class: "relative") do

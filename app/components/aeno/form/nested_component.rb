@@ -3,9 +3,12 @@ module Aeno::Form
     option :name
     option :label, optional: true
     option :form_builder
-    option :wrapper_selector, default: proc { ".nested-form-wrapper" }
+    option :css, optional: true
+    option :wrapper_selector, default: proc { "[data-role='nested-item']" }
     option :add_button_label, optional: true
+    option :add_button_icon, default: proc { "plus" }
     option :remove_button_label, default: proc { "Remove" }
+    option :remove_button_icon, default: proc { "trash" }
     option :allow_destroy, default: proc { true }
 
     def initialize(name:, form_builder:, **options, &block)
