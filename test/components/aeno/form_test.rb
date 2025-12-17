@@ -31,33 +31,31 @@ class TestWrapperComponent < ViewComponent::Base
   end
 
   erb_template <<~ERB
-    <%= form_with(model: contact, url: "/contacts", method: :post, data: { controller: "aeno--form" }) do |f| %>
-      <%= render(Aeno::Form::LayoutComponent.new(form_builder: f)) do |component| %>
-        <% component.with_item_input(type: :text, name: "email", label: "Email") %>
+    <%= render(Aeno::Form::Component.new(model: contact, url: "/contacts", method: :post)) do |component| %>
+      <% component.with_item_input(type: :text, name: "email", label: "Email") %>
 
-        <% component.with_item_group(title: "Contact Information") do |g| %>
-          <% g.with_item_input(type: :text, name: "name", label: "Name") %>
+      <% component.with_item_group(title: "Contact Information") do |g| %>
+        <% g.with_item_input(type: :text, name: "name", label: "Name") %>
 
-          <% g.with_item_nested(name: :siblings, label: "Siblings") do |s| %>
-            <% s.with_item_input(type: :text, name: "name", label: "Sibling Name") %>
-            <% s.with_item_input(type: :text, name: "age", label: "Age") %>
+        <% g.with_item_nested(name: :siblings, label: "Siblings") do |s| %>
+          <% s.with_item_input(type: :text, name: "name", label: "Sibling Name") %>
+          <% s.with_item_input(type: :text, name: "age", label: "Age") %>
 
-            <% s.with_item_nested(name: :phones, label: "Phone Numbers") do |p| %>
-              <% p.with_item_input(type: :text, name: "number", label: "Number") %>
-            <% end %>
+          <% s.with_item_nested(name: :phones, label: "Phone Numbers") do |p| %>
+            <% p.with_item_input(type: :text, name: "number", label: "Number") %>
           <% end %>
         <% end %>
-
-        <% component.with_item_group(title: "Address") do |g| %>
-          <% g.with_item_row(css: "grid-cols-2") do |r| %>
-            <% r.with_item_input(type: :text, name: "city", label: "City") %>
-            <% r.with_item_input(type: :text, name: "state", label: "State") %>
-          <% end %>
-        <% end %>
-
-        <% component.with_submit(label: "Create Contact", variant: :primary, type: "submit") %>
-        <% component.with_action(label: "Cancel", variant: :secondary, type: "button") %>
       <% end %>
+
+      <% component.with_item_group(title: "Address") do |g| %>
+        <% g.with_item_row(css: "grid-cols-2") do |r| %>
+          <% r.with_item_input(type: :text, name: "city", label: "City") %>
+          <% r.with_item_input(type: :text, name: "state", label: "State") %>
+        <% end %>
+      <% end %>
+
+      <% component.with_submit(label: "Create Contact", variant: :primary, type: "submit") %>
+      <% component.with_action(label: "Cancel", variant: :secondary, type: "button") %>
     <% end %>
   ERB
 end
@@ -70,24 +68,22 @@ class TestPrepopulatedWrapperComponent < ViewComponent::Base
   end
 
   erb_template <<~ERB
-    <%= form_with(model: contact, url: "/contacts/\#{contact.id}", method: :patch, data: { controller: "aeno--form" }) do |f| %>
-      <%= render(Aeno::Form::LayoutComponent.new(form_builder: f)) do |component| %>
-        <% component.with_item_input(type: :text, name: "email", label: "Email") %>
-        <% component.with_item_input(type: :text, name: "name", label: "Name") %>
+    <%= render(Aeno::Form::Component.new(model: contact, url: "/contacts/\#{contact.id}", method: :patch)) do |component| %>
+      <% component.with_item_input(type: :text, name: "email", label: "Email") %>
+      <% component.with_item_input(type: :text, name: "name", label: "Name") %>
 
-        <% component.with_item_group(title: "Siblings") do |g| %>
-          <% g.with_item_nested(name: :siblings, label: "Siblings") do |s| %>
-            <% s.with_item_input(type: :text, name: "name", label: "Sibling Name") %>
-            <% s.with_item_input(type: :text, name: "age", label: "Age") %>
+      <% component.with_item_group(title: "Siblings") do |g| %>
+        <% g.with_item_nested(name: :siblings, label: "Siblings") do |s| %>
+          <% s.with_item_input(type: :text, name: "name", label: "Sibling Name") %>
+          <% s.with_item_input(type: :text, name: "age", label: "Age") %>
 
-            <% s.with_item_nested(name: :phones, label: "Phone Numbers") do |p| %>
-              <% p.with_item_input(type: :text, name: "number", label: "Number") %>
-            <% end %>
+          <% s.with_item_nested(name: :phones, label: "Phone Numbers") do |p| %>
+            <% p.with_item_input(type: :text, name: "number", label: "Number") %>
           <% end %>
         <% end %>
-
-        <% component.with_submit(label: "Update Contact", variant: :primary, type: "submit") %>
       <% end %>
+
+      <% component.with_submit(label: "Update Contact", variant: :primary, type: "submit") %>
     <% end %>
   ERB
 end

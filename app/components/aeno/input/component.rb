@@ -9,9 +9,6 @@ module Aeno::Input
     option(:disabled, default: proc { false })
     option(:required, default: proc { false })
     option(:data, default: proc { {} })
-    option(:form_builder)
-
-    attr_writer :form_builder
 
     # Additional options for specific input types
     option(:value, optional: true)
@@ -20,14 +17,6 @@ module Aeno::Input
     option(:selected_value, optional: true)
     option(:selected_values, optional: true)
 
-    def scoped_name
-      if form_builder&.object_name
-        "#{form_builder.object_name}[#{name}]"
-      else
-        name.to_s
-      end
-    end
-
     def input_component
       "Aeno::Input::#{type.to_s.camelize}::Component".constantize
     end
@@ -35,14 +24,13 @@ module Aeno::Input
     def call
       # Build options hash with only non-nil values
       extra_options = {}
-      # If value is not explicitly provided, try to read from form_builder's object
-      extra_options[:value] = value.nil? ? read_value_from_model : value
+      extra_options[:value] = value
       extra_options[:multiple] = multiple unless multiple.nil?
       extra_options[:searchable] = searchable unless searchable.nil?
       extra_options[:selected_value] = selected_value unless selected_value.nil?
       extra_options[:selected_values] = selected_values unless selected_values.nil?
 
-      nested = input_component.new(name: scoped_name, id: id, disabled: disabled, required: required, data: data, **extra_options)
+      nested = input_component.new(name: name, id: id, disabled: disabled, required: required, data: data, **extra_options)
 
       content_tag(:div, class: disabled ? "opacity-50 pointer-events-none" : nil, data: merged_data) do
         safe_join([
@@ -57,11 +45,6 @@ module Aeno::Input
     end
 
     private
-
-    def read_value_from_model
-      return nil unless form_builder&.object
-      form_builder.object.public_send(name) if form_builder.object.respond_to?(name)
-    end
 
     def label_html
       content_tag(:label, for: id || name, class: "block text-sm font-medium text-gray-700 mb-1") do
