@@ -285,9 +285,9 @@ class Aeno::FormTest < ViewComponent::TestCase
     assert_equal 0, visible_remove_buttons.count, "Should have 0 visible Remove buttons when no existing records"
 
     # Verify template still exists and contains the fields (but hidden)
-    template = page.find("div[data-aeno--form-target='template'].hidden", visible: false)
-    template_html = template.native.inner_html
-    assert_includes template_html, "NEW_RECORD", "Template should contain NEW_RECORD placeholder"
-    assert_includes template_html, "Sibling Name", "Template should contain sibling fields"
+    templates = page.all("div[data-aeno--form-target='template'].hidden", visible: false)
+    all_template_html = templates.map { |t| t.native.inner_html }.join(" ")
+    assert_includes all_template_html, "NEW_RECORD", "Template should contain NEW_RECORD placeholder"
+    assert_includes all_template_html, "Sibling Name", "Template should contain sibling fields"
   end
 end

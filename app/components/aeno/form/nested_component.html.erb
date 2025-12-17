@@ -4,7 +4,7 @@
   <% end %>
 
   <%# Template for NEW records %>
-  <div data-aeno--form-target="template" class="hidden">
+  <div data-aeno--form-target="template" class="hidden" style="display: none;">
     <%
       if form_builder.object
         association = form_builder.object.class.reflect_on_association(name)
