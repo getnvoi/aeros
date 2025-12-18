@@ -39,10 +39,8 @@
     <%
       collection = form_builder.object&.public_send(name) || []
       # Include persisted records OR new records that have been modified (not blank)
-      if collection.respond_to?(:select)
-        collection = collection.select do |record|
-          record.persisted? || record.changed? || record.errors.any?
-        end
+      collection = collection.select do |record|
+        record.persisted? || record.changed? || record.errors.any?
       end
     %>
     <% if collection.any? %>

@@ -17,12 +17,11 @@ module Aeno::Form::Concerns
 
     def read_value_from_model(name)
       return nil unless form_builder&.object
-      form_builder.object.public_send(name) if form_builder.object.respond_to?(name)
+      form_builder.object.public_send(name)
     end
 
     def read_error_from_model(name)
       return nil unless form_builder&.object
-      return nil unless form_builder.object.respond_to?(:errors)
       errors = form_builder.object.errors[name]
       errors.first if errors.any?
     end

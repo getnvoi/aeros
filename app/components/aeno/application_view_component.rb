@@ -152,7 +152,7 @@ module Aeno
     end
 
     def merged_data
-      return default_data unless respond_to?(:data) && data.keys
+      return default_data unless data.keys
 
       data.merge(**default_data)
     end

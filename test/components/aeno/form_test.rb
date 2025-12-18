@@ -5,6 +5,8 @@ ActiveRecord::Schema.define do
   create_table :contacts, force: true do |t|
     t.string :name
     t.string :email
+    t.string :city
+    t.string :state
     t.timestamps
   end
 
@@ -381,5 +383,57 @@ class Aeno::FormTest < ViewComponent::TestCase
     # Assert total error count includes phone error
     # We should have: contact name, contact email, sibling name, phone number = 4 errors total
     assert_selector "p[data-role='error']", count: 4
+  end
+
+  def test_raises_when_accessing_nonexistent_attribute
+    # Test that read_value_from_model raises NoMethodError for non-existent attributes
+    # Use a real Contact object but ask for a field that doesn't exist
+    contact = Contact.new(name: "Test")
+
+    error = assert_raises(NoMethodError) do
+      render_inline Aeno::Form::Component.new(model: contact, url: "/test", method: :post) do |component|
+        component.with_item_input(type: :text, name: "nonexistent_field", label: "Field")
+      end
+    end
+
+    assert_match(/nonexistent_field/, error.message)
+  end
+
+  def test_raises_when_object_has_no_errors_method
+    # Test that forms fail fast when object doesn't implement errors interface
+    # Without respond_to?(:errors), this will raise instead of silently returning nil
+    test_object = Struct.new(:name, :email, :model_name, :to_key, :to_param, :persisted?) do
+      def self.model_name
+        ActiveModel::Name.new(self, nil, "TestObject")
+      end
+    end.new("Test", "test@example.com", nil, nil, nil, false)
+
+    # This should raise because the object doesn't have an errors method
+    # The exact error type may vary, but it should raise rather than silently fail
+    assert_raises(NoMethodError, ArgumentError) do
+      render_inline Aeno::Form::Component.new(model: test_object, url: "/test", method: :post) do |component|
+        component.with_item_input(type: :text, name: "name", label: "Name")
+      end
+    end
+  end
+
+  def test_raises_when_nested_collection_is_not_enumerable
+    # Test that nested forms fail fast when collection is not enumerable
+    # Create a contact with a siblings method that returns a non-enumerable object
+    contact = Contact.new(name: "Test")
+
+    # Override the siblings method to return a non-enumerable
+    def contact.siblings
+      Object.new
+    end
+
+    # This should raise NoMethodError when trying to call .select on the non-enumerable
+    assert_raises(NoMethodError) do
+      render_inline Aeno::Form::Component.new(model: contact, url: "/test", method: :post) do |component|
+        component.with_item_nested(name: :siblings, label: "Siblings") do |s|
+          s.with_item_input(type: :text, name: "name", label: "Name")
+        end
+      end
+    end
   end
 end
