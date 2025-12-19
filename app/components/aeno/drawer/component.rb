@@ -147,7 +147,7 @@ module Aeno::Drawer
             '<button class="px-4 py-2 bg-slate-600 text-white rounded">Edit Profile</button>'.html_safe
           end
           drawer.with_header { "Edit Profile" }
-          drawer.with_form(model: Contact.new, url: "/profile") do |form|
+          drawer.with_form(model: Aeno::Contact.new, url: "/profile") do |form|
             form.with_item_input(type: :text, name: "name", label: "Name")
             form.with_item_input(type: :text, name: "email", label: "Email")
             form.with_item_input(type: :text, name: "city", label: "City")
