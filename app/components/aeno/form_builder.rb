@@ -79,6 +79,10 @@ class Aeno::FormBuilder < ActionView::Helpers::FormBuilder
     field(:text_area_ai, name, options)
   end
 
+  def otp_field(name, options = {})
+    field(:otp, name, options)
+  end
+
   private
 
     def resolve_name(name)

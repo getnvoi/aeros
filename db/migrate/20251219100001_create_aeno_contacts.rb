@@ -9,6 +9,7 @@ class CreateAenoContacts < ActiveRecord::Migration[8.1]
       t.date :birth_date
       t.string :address
       t.string :city
+      t.string :state
       t.string :country
 
       t.timestamps

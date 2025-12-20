@@ -1,0 +1,49 @@
+<div class="relative"
+     data-controller="<%= controller_name %>"
+     <%= stimulus_values.map { |k, v| "data-#{k.to_s.dasherize}=\"#{ERB::Util.html_escape(v)}\"" }.join(" ").html_safe %>>
+
+  <%# Container for OTP inputs %>
+  <div class="flex items-center gap-2" role="group" aria-labelledby="<%= id %>-label">
+    <% input_ids.each_with_index do |input_id, index| %>
+      <input
+        type="text"
+        id="<%= input_id %>"
+        maxlength="1"
+        inputmode="<%= inputmode %>"
+        pattern="<%= pattern %>"
+        autocomplete="<%= autocomplete %>"
+        class="block w-12 h-12 text-center text-lg font-semibold rounded-md bg-white px-0 py-2 text-gray-900 outline-none border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm"
+        data-<%= controller_name %>-target="input"
+        data-action="
+          input-><%= controller_name %>#handleInput
+          keydown-><%= controller_name %>#handleKeydown
+          paste-><%= controller_name %>#handlePaste
+          focus-><%= controller_name %>#handleFocus
+        "
+        <%= 'disabled' if disabled %>
+        <%= 'required' if required && index.zero? %>
+        <% if data.any? %>
+          <% data.each do |key, val| %>
+            data-<%= key.to_s.dasherize %>="<%= val %>"
+          <% end %>
+        <% end %>
+      />
+
+      <%# Optional separator %>
+      <% if show_separator_after?(index) %>
+        <span class="text-gray-400 text-lg font-medium select-none" aria-hidden="true">
+          <%= separator %>
+        </span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%# Hidden input to store complete OTP value %>
+  <input
+    type="hidden"
+    id="<%= id %>"
+    name="<%= name %>"
+    data-<%= controller_name %>-target="hiddenInput"
+    value="<%= value %>"
+  />
+</div>
