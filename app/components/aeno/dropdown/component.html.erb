@@ -8,13 +8,13 @@
            data: { action: "click->aeno--dropdown#toggle" }) %>
   </div>
 
-  <div class="hidden origin-top-right fixed mt-2 w-56 rounded-card shadow-lg bg-background-elevated border border-border focus:outline-none z-50"
+  <div class="hidden origin-top-right fixed mt-margin w-dropdown-width rounded-card shadow-lg bg-background-elevated border border-border focus:outline-none z-50"
        role="menu"
        aria-orientation="vertical"
        data-aeno--dropdown-target="menu">
 
     <% if searchable %>
-      <div class="p-2 border-b border-border">
+      <div class="p-pad-sm border-b border-border">
         <input type="text"
                class="w-full px-input-x h-control text-ui border border-border rounded-input focus:outline-none focus:ring-2 focus:ring-primary-solid focus:border-primary-solid bg-background-elevated"
                placeholder="<%= placeholder %>"
@@ -23,7 +23,7 @@
       </div>
     <% end %>
 
-    <div class="py-1 max-h-60 overflow-y-auto">
+    <div class="py-margin-sm max-h-60 overflow-y-auto">
       <% if groups.any? %>
         <% groups.each do |group| %>
           <%= group %>

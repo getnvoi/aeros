@@ -15,7 +15,7 @@ module Aeno::Checkbox
 
     def checkbox_classes
       [
-        "col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white",
+        "col-start-1 row-start-1 appearance-none rounded-button-sm border border-gray-300 bg-white",
         "checked:border-primary-solid checked:bg-primary-solid",
         "indeterminate:border-primary-solid indeterminate:bg-primary-solid",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-solid",

@@ -38,7 +38,7 @@ module Aeno
       def initials_classes
         [
           style(size:),
-          "flex items-center justify-center text-white font-semibold select-none"
+          "flex items-center justify-center text-white font-weight-semibold select-none"
         ].join(" ")
       end
 
@@ -145,9 +145,9 @@ module Aeno
           xs: "text-[9px]",
           sm: "text-[10px]",
           md: "text-xs",
-          lg: "text-sm",
+          lg: "text-ui",
           xl: "text-base",
-          xxl: "text-lg"
+          xxl: "text-drawer-title"
         }[size]
       end
 

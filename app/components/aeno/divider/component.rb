@@ -7,7 +7,7 @@ module Aeno
       option :orientation, default: -> { :horizontal }
 
       style :container do
-        base { "relative my-6" }
+        base { "relative my-margin-xl" }
 
         variants do
           orientation do

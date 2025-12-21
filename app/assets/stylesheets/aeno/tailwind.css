@@ -123,9 +123,11 @@
     --spacing-space-lg: 1.5rem;
     --spacing-pad-sm: 0.5rem;
     --spacing-pad: 1rem;
+    --spacing-margin-xs: 0.125rem;
     --spacing-margin-sm: 0.25rem;
     --spacing-margin: 0.5rem;
     --spacing-margin-lg: 1rem;
+    --spacing-margin-xl: 1.5rem;
     --spacing-icon-xs: 0.75rem;
     --spacing-icon-sm: 1rem;
     --spacing-icon: 1.25rem;
@@ -133,6 +135,7 @@
     --spacing-icon-lg: 2rem;
     --spacing-icon-xl: 2.5rem;
     --spacing-icon-2xl: 3rem;
+    --spacing-dropdown-width: 14rem;
     --text-ui: 0.875rem;
     --leading-ui: 1.25rem;
     --text-page-title: 1.875rem;
@@ -430,6 +433,9 @@
   .my-6 {
     margin-block: calc(var(--spacing) * 6);
   }
+  .my-margin-xl {
+    margin-block: var(--spacing-margin-xl);
+  }
   .mt-0 {
     margin-top: calc(var(--spacing) * 0);
   }
@@ -450,6 +456,9 @@
   }
   .mt-margin-sm {
     margin-top: var(--spacing-margin-sm);
+  }
+  .mt-margin-xs {
+    margin-top: var(--spacing-margin-xs);
   }
   .-mr-1 {
     margin-right: calc(var(--spacing) * -1);
@@ -712,6 +721,9 @@
   }
   .w-\[700px\] {
     width: 700px;
+  }
+  .w-dropdown-width {
+    width: var(--spacing-dropdown-width);
   }
   .w-full {
     width: 100%;
@@ -1317,6 +1329,9 @@
   }
   .p-pad {
     padding: var(--spacing-pad);
+  }
+  .p-pad-sm {
+    padding: var(--spacing-pad-sm);
   }
   .px-0 {
     padding-inline: calc(var(--spacing) * 0);
