@@ -1,0 +1,13 @@
+<span class="relative inline-block" data-controller="<%= controller_name %>">
+  <% if src.present? %>
+    <img src="<%= src %>" alt="<%= alt %>" class="<%= avatar_classes %>" />
+  <% else %>
+    <span class="<%= initials_classes %> <%= font_size_class %>" style="background-color: <%= background_color %>">
+      <%= initials %>
+    </span>
+  <% end %>
+
+  <% if status.present? %>
+    <span class="<%= status_dot_classes %>"></span>
+  <% end %>
+</span>
