@@ -1,13 +1,13 @@
 <div class="min-h-screen flex items-center justify-center px-inset py-inset bg-background">
-  <div class="w-full <%= width_class %> space-y-6">
-    <div class="text-center space-y-2">
+  <div class="w-full <%= width_class %> space-y-space-lg">
+    <div class="text-center space-y-space-sm">
       <h1 class="text-page-title leading-page-title font-weight-page-title text-foreground"><%= title %></h1>
       <% if subtitle.present? %>
         <p class="text-ui text-muted-foreground"><%= subtitle %></p>
       <% end %>
     </div>
 
-    <div class="rounded-card border border-border px-inset py-inset space-y-6 bg-background-elevated">
+    <div class="rounded-card border border-border px-inset py-inset space-y-space-lg bg-background-elevated">
       <% if alert? %>
         <%= alert %>
       <% end %>
@@ -15,7 +15,7 @@
       <%= content %>
 
       <% if footer? %>
-        <div class="space-y-4">
+        <div class="space-y-space-md">
           <%= footer %>
         </div>
       <% end %>

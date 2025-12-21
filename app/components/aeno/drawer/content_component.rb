@@ -21,7 +21,7 @@ module Aeno::Drawer
       "[&_[data-role='layout-content']]:overflow-y-auto",
       "[&_[data-role='layout-content']]:px-inset",
       "[&_[data-role='layout-content']]:py-inset",
-      "[&_[data-role='layout-content']]:space-y-4",
+      "[&_[data-role='layout-content']]:space-y-space-md",
       "[&_[data-role='layout-footer']]:flex-shrink-0",
       "[&_[data-role='layout-footer']]:border-t",
       "[&_[data-role='layout-footer']]:border-border",

@@ -5,8 +5,8 @@
     <% end %>
   </div>
 
-  <div class="flex items-center space-x-6">
-    <div class="flex items-center space-x-2">
+  <div class="flex items-center space-x-space-lg">
+    <div class="flex items-center space-x-space-sm">
       <span class="text-sm truncate"><%= translations[:per_page] %></span>
       <%= render Aeno::Input::Select::Component.new(
         name: "per_page",
@@ -27,7 +27,7 @@
       <%= translations[:page] %> <%= current_page %> <%= translations[:of] %> <%= total_pages %>
     </span>
 
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center space-x-space-sm">
       <%= link_to page_url(1), data: { turbo_action: "replace" }, class: "inline-flex items-center justify-center rounded-md border border-border bg-background-elevated px-2 py-2 text-sm font-medium text-foreground hover:bg-secondary-hover disabled:opacity-disabled #{!can_previous? ? 'pointer-events-none opacity-disabled' : ''}" do %>
         <%= lucide_icon("chevrons-left", class: "size-4") %>
       <% end %>

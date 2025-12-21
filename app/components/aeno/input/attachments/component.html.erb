@@ -1,4 +1,4 @@
-<div class="space-y-3"
+<div class="space-y-space"
      data-controller="<%= controller_name %>"
      <%= stimulus_values.map { |k, v| "data-#{k.dasherize}=\"#{ERB::Util.html_escape(v)}\"" }.join(" ").html_safe %>>
 

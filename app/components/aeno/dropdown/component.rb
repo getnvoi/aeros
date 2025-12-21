@@ -47,7 +47,7 @@ module Aeno::Dropdown
              data-label="<%= label %>"
              data-value="<%= value %>"
              data-action="click->aeno--dropdown#select">
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-space-sm">
               <%= lucide_icon(icon, class: "w-4 h-4") if icon %>
               <span><%= label %></span>
             </div>
@@ -60,7 +60,7 @@ module Aeno::Dropdown
                   data-label="<%= label %>"
                   data-value="<%= value %>"
                   data-action="click->aeno--dropdown#select">
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-space-sm">
               <%= lucide_icon(icon, class: "w-4 h-4") if icon %>
               <span><%= label %></span>
             </div>
