@@ -3,18 +3,17 @@ import { Controller } from "@hotwired/stimulus";
 const BASE_Z_INDEX = 40;
 
 export default class extends Controller {
-  static targets = ["background", "wrapper"];
+  static targets = ["background", "wrapper", "trigger"];
 
   connect() {
     this.#stackAboveExisting();
 
-    // Auto-open on connect (for lazy shell creation pattern)
-    requestAnimationFrame(() => {
-      this.backgroundTarget.classList.add("opacity-100", "pointer-events-auto");
-      this.backgroundTarget.classList.remove("opacity-0", "pointer-events-none");
-      this.wrapperTarget.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
-    });
+    // Only auto-open if NO trigger (turbo/dynamic mode)
+    if (!this.hasTriggerTarget) {
+      requestAnimationFrame(() => {
+        this.#performOpen();
+      });
+    }
 
     document.addEventListener("keydown", this.handleKeydown);
   }
@@ -31,13 +30,7 @@ export default class extends Controller {
   open() {
     this.#stackAboveExisting();
     requestAnimationFrame(() => {
-      this.backgroundTarget.classList.add("opacity-100", "pointer-events-auto");
-      this.backgroundTarget.classList.remove(
-        "opacity-0",
-        "pointer-events-none",
-      );
-      this.wrapperTarget.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
+      this.#performOpen();
     });
   }
 
@@ -51,8 +44,11 @@ export default class extends Controller {
     this.#restoreBodyScroll();
 
     setTimeout(() => {
-      // For lazy shell creation: remove entire drawer element
-      this.element.remove();
+      // Only remove element if NO trigger (lazy shell pattern)
+      // With trigger: keep element in DOM so it can be reopened
+      if (!this.hasTriggerTarget) {
+        this.element.remove();
+      }
     }, 300);
   }
 
@@ -63,6 +59,13 @@ export default class extends Controller {
   }
 
   // Private
+
+  #performOpen() {
+    this.backgroundTarget.classList.add("opacity-100", "pointer-events-auto");
+    this.backgroundTarget.classList.remove("opacity-0", "pointer-events-none");
+    this.wrapperTarget.classList.remove("translate-x-full");
+    document.body.classList.add("overflow-hidden");
+  }
 
   #stackAboveExisting() {
     if (!this.hasBackgroundTarget || !this.hasWrapperTarget) return;

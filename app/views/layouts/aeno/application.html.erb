@@ -36,7 +36,7 @@
           <% s.with_item(label: component.titleize, href: showcase_path(component), active: params[:id] == component) %>
         <% end %>
 
-        <% s.with_item(label: "📋 Contacts Example", href: aeno_examples_contacts_path, active: controller_name == "contacts") %>
+        <% s.with_item(label: "📋 Contacts Example", href: examples_contacts_path, active: controller_name == "contacts") %>
 
         <% s.with_footer do %>
           v.0.0.1
